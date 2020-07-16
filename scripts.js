@@ -120,20 +120,34 @@
 
 // ? Fresh start with matter.js
 
+// these initiate matter.js systems
 var Engine = Matter.Engine,
 	Render = Matter.Render,
 	World = Matter.World,
 	Bodies = Matter.Bodies;
 
+// actually create the physics engine
 var engine = Engine.create();
-
+// create the renderer
 var render = Render.create({
-
+	// what we are rendering to 
 	element: document.body,
 	engine: engine,
+	// how large do we want our display
+	// do we want to show the shapes wireframes
 	options: {
 		width: 1200,
 		height: 1200,
 		wireframes: false,
 	}
 });
+
+// shapes we could add to the world array
+var boxA = Bodies.rectangle(400, 400, 80, 80);
+var ground = Bodies.rectangle(600, 1100, 1200, 300, {isStatic: true});
+
+// where we actually add the shapes to the world
+World.add(engine.world, [boxA, ground]);
+
+Engine.run(engine);
+Render.run(render);
